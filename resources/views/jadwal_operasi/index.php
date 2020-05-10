@@ -21,16 +21,20 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $op)
+            <?php 
+                foreach ($data as $op) {
+            ?>
             <tr>
-                <td>{{$op->pasien}}</td>
-                <td>{{$op->dokter}}</td>
-                <td>{{$op->tindakan}}</td>
-                <td>{{$op->status}}</td>
-                <td>{{$op->created_at}}</td>
-                <td>{{$op->jam_keluar}}</td>
+                <td><?php echo($op->pasien) ?></td>
+                <td><?php echo($op->dokter) ?></td>
+                <td><?php echo($op->tindakan) ?></td>
+                <td><?php echo($op->status) ?></td>
+                <td><?php echo($op->created_at) ?></td>
+                <td><?php echo($op->jam_keluar) ?></td>
             </tr>
-            @endforeach
+            <?php
+                }
+            ?>
         </tbody>
     </table>
 </body>
