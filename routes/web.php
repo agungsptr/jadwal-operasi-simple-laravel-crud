@@ -27,3 +27,5 @@ Route::group(['prefix' => 'operasi'], function () {
 
     Route::get('/data/jadwal', 'GetDataController@dataJadwal')->name('getdata.jadwal');
 });
+
+Route::get('/test', 'GetDataController@test');
