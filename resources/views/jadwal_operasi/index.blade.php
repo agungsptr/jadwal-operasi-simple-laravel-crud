@@ -50,16 +50,16 @@
                                     <tbody>
                                         <?php
                                         foreach ($list[$i] as $op) {
-                                            $in = $op->created_at;
-                                            $out = $op->jam_keluar;
+                                            $in = DateTime::createFromFormat("Y-m-d H:i:s", $op->created_at);
+                                            $out = DateTime::createFromFormat("Y-m-d H:i:s", $op->jam_keluar);
                                         ?>
                                             <tr>
                                                 <td><?php echo ($op->pasien) ?></td>
                                                 <td><?php echo ($op->dokter) ?></td>
                                                 <td><?php echo ($op->tindakan) ?></td>
                                                 <td><?php echo ($op->status) ?></td>
-                                                <td><?php echo ($op->created_at) ?></td>
-                                                <td><?php echo ($op->jam_keluar) ?></td>
+                                                <td><?php echo $in->format('H:i:s') ?></td>
+                                                <td><?php echo $out->format('H:i:s') ?></td>
                                             </tr>
                                         <?php
                                         }
