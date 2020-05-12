@@ -25,7 +25,7 @@ class JadwalOperasiController extends Controller
             $ten[$a] = $jp[$i - 1];
             $a++;
 
-            if ($i % 5 == 0) {
+            if ($i % 10 == 0) {
                 $list[$x] = $ten;
                 $x++;
                 $a = 0;

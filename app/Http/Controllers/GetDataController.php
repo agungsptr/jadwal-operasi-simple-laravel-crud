@@ -35,10 +35,4 @@ class GetDataController extends Controller
         // return count($list);
         return $list;
     }
-
-    public function test()
-    {
-        $jp = JadwalOperasi::paginate(10);
-        
-    }
 }
