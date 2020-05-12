@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Jadwal Dokter</title>
+    <title>Jadwal Operasi</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <style>
         .vertical-center {
@@ -25,57 +25,54 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-4" style="height: 638px;">
-                <img src="/img/logo-rsia-ph.png" class="img-fluid vertical-center pr-3" alt="Responsive image">
+                <!-- <img src="/img/logo-rsia-ph.png" class="img-fluid vertical-center pr-3" alt="Responsive image"> -->
             </div>
             <div class="col-8">
 
                 <!-- start slide -->
                 <div id="slide-ph" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
-                        {{-- <div class="carousel-item {{ ($loop->iteration == 1) ? 'active' : ''}}">
-                        <div class="card">
-                            <div class="card-body">
-                                <!-- <blockquote class="blockquote mb-0">
-                                    <p>{{$op->pasien}}</p>
-                                    <p>{{$op->dokter}}</p>
-                                    <p>{{$op->tindakan}}</p>
-                                    <p>{{$op->status}}</p>
-                                    <footer class="blockquote-footer">{{$op->created_at}} <cite
-                                            title="Source Title">{{$op->jam_keluar}}</cite></footer>
-                                </blockquote> -->
-                            </div>
-                        </div>
-                    </div> --}}
-
-                    <table class="table table-bordered">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>Nama Pasien</th>
-                                <th>Nama Dokter</th>
-                                <th>Tindakan</th>
-                                <th>Status</th>
-                                <th>Jam Masuk</th>
-                                <th>Jam Selesai</th>
-                            </tr>
-                        </thead>
-                        <tbody>                            
-                            @foreach ($data as $op)
-                            <tr>
-                                <td>{{$op->pasien}}</td>
-                                <td>{{$op->dokter}}</td>
-                                <td>{{$op->tindakan}}</td>
-                                <td>{{$op->status}}</td>
-                                <td>{{$op->created_at}}</td>
-                                <td>{{$op->jam_keluar}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                        <?php
+                        for ($i = 0; $i < $data->lastPage(); $i++) {
+                        ?>
+                            <div class="carousel-item <?php echo ($data->onFirstPage() == true) ? 'active' : ''; ?>">
+                                <table class="table table-bordered">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Nama Pasien</th>
+                                            <th>Nama Dokter</th>
+                                            <th>Tindakan</th>
+                                            <th>Status</th>
+                                            <th>Jam Masuk</th>
+                                            <th>Jam Selesai</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($data as $op) {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo ($op->pasien) ?></td>
+                                                <td><?php echo ($op->dokter) ?></td>
+                                                <td><?php echo ($op->tindakan) ?></td>
+                                                <td><?php echo ($op->status) ?></td>
+                                                <td><?php echo ($op->created_at) ?></td>
+                                                <td><?php echo ($op->jam_keluar) ?></td>
+                                            </tr>
+                                        <?php
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>z
+                        <?php
+                        }
+                        ?>
+                    </div>
                 </div>
+                <!-- end slide -->
             </div>
-            <!-- end slide -->
         </div>
-    </div>
     </div>
 
 
