@@ -14,7 +14,30 @@ class JadwalOperasiController extends Controller
      */
     public function index()
     {
-        return view('jadwal_operasi.index', ['data' => JadwalOperasi::all()]);
+        $jp = JadwalOperasi::all();
+
+        $list = [];
+        $x = 0;
+        $a = 0;
+        $length = count($jp);
+
+        for ($i = 1; $i < $length + 1; $i++) {
+            $ten[$a] = $jp[$i - 1];
+            $a++;
+
+            if ($i % 5 == 0) {
+                $list[$x] = $ten;
+                $x++;
+                $a = 0;
+                $ten = null;
+            }
+
+            if ($i < $length + 1) {
+                $list[$x] = $ten;
+            }
+        }
+
+        return view('jadwal_operasi.index', ['data' => $jp, 'list' => $list]);
     }
 
     /**
