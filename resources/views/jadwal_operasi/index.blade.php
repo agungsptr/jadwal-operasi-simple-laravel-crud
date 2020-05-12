@@ -24,8 +24,8 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-4" style="height: 638px;">
-                <!-- <img src="/img/logo-rsia-ph.png" class="img-fluid vertical-center pr-3" alt="Responsive image"> -->
+            <div class="col-4" style="height: 630px;">
+                <img src="/img/logo-rsia-ph.png" class="img-fluid vertical-center pr-3" alt="Responsive image">
             </div>
             <div class="col-8">
 
@@ -33,9 +33,9 @@
                 <div id="slide-ph" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <?php
-                        for ($i = 0; $i < $data->lastPage(); $i++) {
+                        for ($i = 0; $i < count($list); $i++) {
                         ?>
-                            <div class="carousel-item <?php echo ($data->onFirstPage() == true) ? 'active' : ''; ?>">
+                            <div class="carousel-item <?php echo ($i == 0) ? 'active' : ''; ?>">
                                 <table class="table table-bordered">
                                     <thead class="thead-light">
                                         <tr>
@@ -49,7 +49,9 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        foreach ($data as $op) {
+                                        foreach ($list[$i] as $op) {
+                                            $in = $op->created_at;
+                                            $out = $op->jam_keluar;
                                         ?>
                                             <tr>
                                                 <td><?php echo ($op->pasien) ?></td>
@@ -64,7 +66,7 @@
                                         ?>
                                     </tbody>
                                 </table>
-                            </div>z
+                            </div>
                         <?php
                         }
                         ?>
