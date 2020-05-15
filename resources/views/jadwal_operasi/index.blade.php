@@ -16,9 +16,17 @@
             -ms-transform: translateY(-50%);
             transform: translateY(-50%);
         }
+
         h5 {
             margin: 0;
             padding: 0;
+        }
+
+        .elip {
+            white-space: nowrap; 
+            width: 200px; 
+            overflow: hidden;
+            text-overflow: ellipsis; 
         }
     </style>
 </head>
@@ -55,16 +63,14 @@
                                     <tbody>
                                         <?php
                                         foreach ($list[$i] as $op) {
-                                            $in = DateTime::createFromFormat("Y-m-d H:i:s", $op->created_at);
-                                            $out = DateTime::createFromFormat("Y-m-d H:i:s", $op->jam_keluar);
                                         ?>
                                             <tr>
-                                                <td><strong><?php echo substr(strtoupper($op->pasien), 0, 13) ?></strong></td>
-                                                <td><?php echo substr(strtoupper($op->dokter), 0, 13) ?></td>
+                                                <td><strong><p class="elip">{{strtoupper($op->pasien)}}</p></strong></td>
+                                                <td><p class="elip">{{strtoupper($op->dokter)}}</p></td>
                                                 <td><?php echo strtoupper($op->tindakan) ?></td>
                                                 <td class="text-center"><h5><span class="badge badge-pill badge-primary"><?php echo strtoupper($op->status) ?></span></h5></td>
-                                                <td class="text-danger text-center"><h5><strong><?php echo $in->format('H:i:s') ?></strong></h5></td>
-                                                <td class="text-success text-center"><h5><strong><?php echo $out->format('H:i:s') ?></strong></h5></td>
+                                                <td class="text-danger text-center"><h5><strong>{{substr($op->created_at, 11, 19)}}</strong></h5></td>
+                                                <td class="text-success text-center"><h5><strong>{{substr($op->jam_keluar, 11, 19)}}</strong></h5></td>
                                             </tr>
                                         <?php
                                         }
