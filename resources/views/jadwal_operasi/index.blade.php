@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="refresh" content="60" />
     <title>Jadwal Operasi</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <style>
@@ -15,6 +16,10 @@
             -ms-transform: translateY(-50%);
             transform: translateY(-50%);
         }
+        h5 {
+            margin: 0;
+            padding: 0;
+        }
     </style>
 </head>
 
@@ -24,8 +29,8 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-4" style="height: 630px;">
-                <img src="/img/logo-rsia-ph.png" class="img-fluid vertical-center pr-3" alt="Responsive image">
+            <div class="col-4">
+                <!-- <img src="/img/logo-rsia-ph.png" class="img-fluid vertical-center pr-3" alt="Responsive image"> -->
             </div>
             <div class="col-8">
 
@@ -36,11 +41,11 @@
                         for ($i = 0; $i < count($list); $i++) {
                         ?>
                             <div class="carousel-item <?php echo ($i == 0) ? 'active' : ''; ?>">
-                                <table class="table table-bordered">
-                                    <thead class="thead-light">
+                                <table class="table table-striped table-bordered">
+                                    <thead class="thead-dark">
                                         <tr>
-                                            <th>Nama Pasien</th>
-                                            <th>Nama Dokter</th>
+                                            <th style="width: 200px">Nama Pasien</th>
+                                            <th style="width: 170px">Nama Dokter</th>
                                             <th>Tindakan</th>
                                             <th>Status</th>
                                             <th>Jam Masuk</th>
@@ -54,12 +59,12 @@
                                             $out = DateTime::createFromFormat("Y-m-d H:i:s", $op->jam_keluar);
                                         ?>
                                             <tr>
-                                                <td><?php echo ($op->pasien) ?></td>
-                                                <td><?php echo ($op->dokter) ?></td>
-                                                <td><?php echo ($op->tindakan) ?></td>
-                                                <td><?php echo ($op->status) ?></td>
-                                                <td><?php echo $in->format('H:i:s') ?></td>
-                                                <td><?php echo $out->format('H:i:s') ?></td>
+                                                <td><strong><?php echo substr(strtoupper($op->pasien), 0, 13) ?></strong></td>
+                                                <td><?php echo substr(strtoupper($op->dokter), 0, 13) ?></td>
+                                                <td><?php echo strtoupper($op->tindakan) ?></td>
+                                                <td class="text-center"><h5><span class="badge badge-pill badge-primary"><?php echo strtoupper($op->status) ?></span></h5></td>
+                                                <td class="text-danger text-center"><h5><strong><?php echo $in->format('H:i:s') ?></strong></h5></td>
+                                                <td class="text-success text-center"><h5><strong><?php echo $out->format('H:i:s') ?></strong></h5></td>
                                             </tr>
                                         <?php
                                         }
