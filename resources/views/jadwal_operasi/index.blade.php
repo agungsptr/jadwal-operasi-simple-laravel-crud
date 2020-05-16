@@ -16,24 +16,31 @@
             -ms-transform: translateY(-50%);
             transform: translateY(-50%);
         }
+
         h5 {
             margin: 0;
             padding: 0;
+        }
+
+        td {
+            padding: 11px !important
         }
     </style>
 </head>
 
 <body>
-    <div class="bg-primary shadow text-light rounded-lg d-flex justify-content-center p-1 mb-3" style="height: 83px">
-        <p class="display-4 m-0" id="datetime"></p>
-    </div>
     <div class="container-fluid">
+        <div class="row pb-3">
+            <img src="img/header-edit.jpg" width="100%" alt="header">
+        </div>
         <div class="row">
-            <div class="col-4">
+            <div class="col-4 pr-0">
+                <div class="bg-primary shadow text-light rounded-lg d-flex justify-content-center p-1 mb-3" style="height: 83px">
+                    <p class="display-4 m-0" id="datetime"></p>
+                </div>
                 <!-- <img src="/img/logo-rsia-ph.png" class="img-fluid vertical-center pr-3" alt="Responsive image"> -->
             </div>
             <div class="col-8">
-
                 <!-- start slide -->
                 <div id="slide-ph" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
@@ -62,9 +69,15 @@
                                                 <td><strong><?php echo substr(strtoupper($op->pasien), 0, 13) ?></strong></td>
                                                 <td><?php echo substr(strtoupper($op->dokter), 0, 13) ?></td>
                                                 <td><?php echo strtoupper($op->tindakan) ?></td>
-                                                <td class="text-center"><h5><span class="badge badge-pill badge-primary"><?php echo strtoupper($op->status) ?></span></h5></td>
-                                                <td class="text-danger text-center"><h5><strong><?php echo $in->format('H:i:s') ?></strong></h5></td>
-                                                <td class="text-success text-center"><h5><strong><?php echo $out->format('H:i:s') ?></strong></h5></td>
+                                                <td class="text-center">
+                                                    <h5><span class="badge badge-pill badge-primary"><?php echo strtoupper($op->status) ?></span></h5>
+                                                </td>
+                                                <td class="text-danger text-center">
+                                                    <h5><strong><?php echo $in->format('H:i:s') ?></strong></h5>
+                                                </td>
+                                                <td class="text-success text-center">
+                                                    <h5><strong><?php echo $out->format('H:i:s') ?></strong></h5>
+                                                </td>
                                             </tr>
                                         <?php
                                         }
@@ -98,7 +111,7 @@
             const days = ['MINGGU', 'SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU']
             setInterval(function() {
                 var dt = new Date();
-                $('#datetime').html(days[dt.getDay()] + ', ' + dt.getDate() + ' ' + months[dt
+                $('#datetime').html(dt.getDate() + ' ' + months[dt
                         .getMonth()] + ' ' + dt
                     .getFullYear()
                 );
