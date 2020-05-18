@@ -42,19 +42,36 @@
 <body>
     <div class="container-fluid">
         <div class="row pb-3">
-            <img src="img/header-edit.jpg" width="100%" alt="header">
+            <img src="img/header-edit.jpg" class="shadow" width="100%" alt="header">
         </div>
         <div class="row">
             <div class="col-4 pr-0">
-                <div class="bg-primary shadow text-light rounded-lg d-flex justify-content-center p-1 mb-3" style="height: 83px">
-                    <p class="display-4 m-0" id="datetime"></p>
+                <div class="bg-primary shadow text-light rounded-lg d-flex justify-content-center mb-3" style="height: 70px">
+                    <p class="h1 mt-2 m-0" id="datetime"></p>
                 </div>
-                <!-- <img src="/img/logo-rsia-ph.png" class="img-fluid vertical-center pr-3" alt="Responsive image"> -->
-            </div>
-            <div class="col-8">
-                <!-- start slide -->
-                <div id="slide-ph" class="carousel slide" data-ride="carousel">
+                <!-- Slide -->
+                <div id="slide-ph" class="carousel slide shadow" data-ride="carousel">
                     <div class="carousel-inner">
+                        <?php
+                        $dirname = "img/slide/";
+                        $images = glob($dirname . "*.jpg");
+                        $i = 0;
+                        foreach ($images as $image) {
+                        ?>
+                            <div class="carousel-item <?php echo ($i == 0) ? 'active' : ''; ?>">
+                                <img src="<?= $image ?>" class="w-100 h-100" alt="<?= $image ?>">
+                            </div>
+                        <?php
+                            $i++;
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8" id="data">
+                <!-- start slide data -->
+                <div id="slide-data" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner shadow">
                         <?php
                         for ($i = 0; $i < count($list); $i++) {
                         ?>
@@ -77,9 +94,15 @@
                                             $out = DateTime::createFromFormat("Y-m-d H:i:s", $op->jam_keluar);
                                         ?>
                                             <tr>
-                                                <td><strong><p class="elip"><?php echo strtoupper($op->pasien) ?></p></strong></td>
-                                                <td><p class="elip"> <?php echo strtoupper($op->dokter) ?> </p></td>
-                                                <td><p class="elip"><?php echo strtoupper($op->tindakan) ?></p></td>
+                                                <td><strong>
+                                                        <p class="elip"><?php echo strtoupper($op->pasien) ?></p>
+                                                    </strong></td>
+                                                <td>
+                                                    <p class="elip"> <?php echo strtoupper($op->dokter) ?> </p>
+                                                </td>
+                                                <td>
+                                                    <p class="elip"><?php echo strtoupper($op->tindakan) ?></p>
+                                                </td>
                                                 <td class="text-center">
                                                     <h5><span class="badge badge-pill badge-primary"><?php echo strtoupper($op->status) ?></span></h5>
                                                 </td>
@@ -108,25 +131,22 @@
     </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
     </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
     <script src="/js/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-            const months = ['JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AGU', 'SEP', 'OKT', 'NOV',
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov',
                 'DES'
             ];
             const days = ['MINGGU', 'SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU']
             setInterval(function() {
                 var dt = new Date();
-                $('#datetime').html(dt.getDate() + ' ' + months[dt
+                $('#datetime').html('Operasi ' + dt.getDate() + ' ' + months[dt
                         .getMonth()] + ' ' + dt
                     .getFullYear()
                 );
