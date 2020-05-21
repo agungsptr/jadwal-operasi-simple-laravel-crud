@@ -20,12 +20,12 @@
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>Nama Pasien</th>
-                    <th>Nama Dokter</th>
-                    <th>Tindakan</th>
-                    <th>Status</th>
-                    <th>Jam Masuk</th>
-                    <th>Jam Selesai</th>
+                    <th style="width: 15%">Nama Pasien</th>
+                    <th style="width: 15%">Nama Dokter</th>
+                    <th style="width: 25%">Tindakan</th>
+                    <th style="width: 10%">Jam Masuk</th>
+                    <th style="width: 10%">Jam Selesai</th>
+                    <th style="width: 10%">Status</th>
                     <th style="width: 130px;">Action</th>
                 </tr>
             </thead>
@@ -35,13 +35,13 @@
                     <td>{{$op->pasien}}</td>
                     <td>{{$op->dokter}}</td>
                     <td>{{$op->tindakan}}</td>
+                    <td>{{substr($op->created_at, 11, 19)}}</td>
+                    <td>{{substr($op->jam_keluar, 11, 19)}}</td>
                     <td>{{$op->status}}</td>
-                    <td>{{$op->created_at}}</td>
-                    <td>{{$op->jam_keluar}}</td>
                     <td>
                         <a href="{{ route('op.manage.edit', ['id'=>$op->id]) }}"
                             class="float-left btn btn-sm btn-info">Edit</a>
-                        <form onsubmit="return confirm('Delete {{$op->pasien}} ?')" class=" float-left ml-1"
+                            <form onsubmit="return confirm('Delete {{$op->pasien}} ?')" class=" float-left ml-1"
                             action="{{ route('op.manage.delete', ['id'=>$op->id]) }}" method="POST">
                             @csrf
                             @method('DELETE')
@@ -97,7 +97,7 @@
                             </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button id="btn_simpan" type="submit" class="btn btn-primary">Simpan</button>
                         </form>
                     </div>
                 </div>
@@ -112,6 +112,14 @@
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#btn_simpan').on('click', function () {
+                location.reload();
+            });
+        });
     </script>
 </body>
 
