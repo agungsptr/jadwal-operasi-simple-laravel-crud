@@ -110,7 +110,7 @@
                                             </h5>
                                         </td>
                                         <td class="text-danger text-center">
-                                            <h5><strong>{{substr($op->created_at, 11, 19)}}</strong></h5>
+                                            <h5><strong>{{substr($op->jam_masuk, 11, 19)}}</strong></h5>
                                         </td>
                                         <td class="text-success text-center">
                                             <h5><strong>{{substr($op->jam_keluar, 11, 19)}}</strong></h5>

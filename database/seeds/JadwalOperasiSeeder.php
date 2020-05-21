@@ -1,6 +1,7 @@
 <?php
 
 use App\JadwalOperasi;
+use App\ListDokter;
 use Illuminate\Database\Seeder;
 
 class JadwalOperasiSeeder extends Seeder
@@ -13,11 +14,8 @@ class JadwalOperasiSeeder extends Seeder
     public function run()
     {
         for ($i=0; $i < 15; $i++) { 
-            $jo = new JadwalOperasi;
-            $jo->pasien = "pasien$i";
-            $jo->dokter = "dokter$i";
-            $jo->tindakan = "tindakan$i";
-            $jo->status = "stts$i";
+            $jo = new ListDokter;
+            $jo->nama = "dok$i";
             $jo->save();
         }
     }

@@ -11,6 +11,12 @@
 
 <body>
     <div class="container">
+
+        {{-- alert --}}
+        @if (session('status'))
+        {{session('status')}}
+        @endif
+
         <h1 class="display-4">Manage Jadwal Operasi</h1>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-success float-right mb-3" data-toggle="modal"
@@ -35,13 +41,13 @@
                     <td>{{$op->pasien}}</td>
                     <td>{{$op->dokter}}</td>
                     <td>{{$op->tindakan}}</td>
-                    <td>{{substr($op->created_at, 11, 19)}}</td>
+                    <td>{{substr($op->jam_masuk, 11, 19)}}</td>
                     <td>{{substr($op->jam_keluar, 11, 19)}}</td>
                     <td>{{$op->status}}</td>
                     <td>
                         <a href="{{ route('op.manage.edit', ['id'=>$op->id]) }}"
                             class="float-left btn btn-sm btn-info">Edit</a>
-                            <form onsubmit="return confirm('Delete {{$op->pasien}} ?')" class=" float-left ml-1"
+                        <form onsubmit="return confirm('Delete {{$op->pasien}} ?')" class=" float-left ml-1"
                             action="{{ route('op.manage.delete', ['id'=>$op->id]) }}" method="POST">
                             @csrf
                             @method('DELETE')
@@ -53,7 +59,7 @@
             </tbody>
         </table>
 
-        <br><br><br>
+        {{$data->links()}}
 
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
@@ -75,21 +81,34 @@
                             </div>
                             <div>
                                 <label for="">Nama Dokter</label>
-                                <input class="form-control" name="dokter" type="text" required>
+                                <select class="form-control" name="dokter" id="" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listDokter as $ld)
+                                        <option value="{{$ld->nama}}">{{$ld->nama}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div>
                                 <label for="">Tindakan</label>
-                                <input class="form-control" name="tindakan" type="text" required>
+                                <select class="form-control" name="tindakan" id="" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listTindakan as $lt)
+                                        <option value="{{$lt->tindakan}}">{{$lt->tindakan}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div>
                                 <label for="">status</label>
                                 <select class="form-control" name="status" id="" required>
-                                    <option value="menuggu">Menuggu</option>
-                                    <option value="proses">Proses</option>
-                                    <option value="selesai">Selesai</option>
-                                    <option value="pemulihan">Diruang Pemulihan</option>
-                                    <option value="inap">Diruang Inap</option>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listStatus as $ls)
+                                        <option value="{{$ls->status}}">{{$ls->status}}</option>
+                                    @endforeach
                                 </select>
+                            </div>
+                            <div>
+                                <label for="">Jam Masuk</label>
+                                <input class="form-control" name="jam_masuk" type="datetime-local" required>
                             </div>
                             <div>
                                 <label for="">Jam Selesai</label>
@@ -112,14 +131,6 @@
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('#btn_simpan').on('click', function () {
-                location.reload();
-            });
-        });
     </script>
 </body>
 
