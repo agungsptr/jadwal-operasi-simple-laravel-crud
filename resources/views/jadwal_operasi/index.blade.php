@@ -83,8 +83,8 @@
                                             <th>Nama Dokter</th>
                                             <th>Tindakan</th>
                                             <th>Status</th>
-                                            <th>Jam Masuk</th>
-                                            <th>Jam Selesai</th>
+                                            <th>Masuk</th>
+                                            <th>Selesai</th>
                                         </tr>
                                     </thead>
                                     <tbody>
