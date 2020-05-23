@@ -21,7 +21,7 @@ class JadwalOperasiSeeder extends Seeder
         // }
 
         $usr = new User;
-        $usr->username = "agung";
+        $usr->name = "yuda";
         $usr->password = \Hash::make("1234567890");
         $usr->save();
     }

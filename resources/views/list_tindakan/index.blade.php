@@ -1,20 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
+@extends('layouts.app')
+@section('title', 'List Tindakan')
+@section('content')
+<div class="container">
     {{-- alert --}}
     @if (session('status'))
-    {{session('status')}}
+    <div class="alert alert-primary" role="alert">
+        {{session('status')}}
+    </div>
     @endif
-
-    <table>
+    <h1 class="display-4">Manage Tindakan</h1>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-success float-right mb-3" data-toggle="modal" data-target="#staticBackdrop">
+        Tambah
+    </button>
+    <table class="table table-striped table-bordered">
         <thead>
             <th>No</th>
             <th>Tindakan</th>
@@ -26,9 +25,8 @@
                 <td>{{$loop->iteration}}</td>
                 <td>{{$data->tindakan}}</td>
                 <td>
-                    <a href="{{ route('tindakan.edit', ['tindakan'=>$data->id]) }}">Edit</a>
-                    <form onsubmit="return confirm('Delete {{$data->tindakan}} ?')" class=" float-left ml-1"
-                        action="{{ route('tindakan.destroy', ['tindakan'=>$data->id]) }}" method="POST">
+                    <a href="{{ route('tindakan.edit', ['tindakan'=>$data->id]) }}" class="btn btn-sm btn-warning float-left">Edit</a>
+                    <form onsubmit="return confirm('Delete {{$data->tindakan}} ?')" class=" float-left ml-1" action="{{ route('tindakan.destroy', ['tindakan'=>$data->id]) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
@@ -40,21 +38,35 @@
     </table>
 
     {{$datas->links()}}
-</body>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Tambah Tindakan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('tindakan.store') }}" method="POST">
+                        @csrf
+                        <div>
+                            <label for="">Nama Tindakan</label>
+                            <input name="tindakan" type="text" class="form-control" required>
 
-
-{{-- dalam modal --}}
-<br><br>
-<form action="{{ route('tindakan.store') }}" method="post">
-    @csrf
-    <label for="">Tindakan :</label>
-    <input name="tindakan" type="text" required>
-    @error('tindakan')
-    <div class="invalid-feedback">
-        {{$message}}
+                            @error('tindakan')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+                        <hr>
+                        <button type="submit" class="btn btn-primary float-right">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    @enderror
-    <button type="submit">Simpan</button>
-</form>
-
-</html>
+</div>
+@endsection
