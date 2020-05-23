@@ -2,6 +2,7 @@
 
 use App\JadwalOperasi;
 use App\ListDokter;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class JadwalOperasiSeeder extends Seeder
@@ -13,10 +14,15 @@ class JadwalOperasiSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=0; $i < 15; $i++) { 
-            $jo = new ListDokter;
-            $jo->nama = "dok$i";
-            $jo->save();
-        }
+        // for ($i=0; $i < 15; $i++) { 
+        //     $jo = new ListDokter;
+        //     $jo->nama = "dok$i";
+        //     $jo->save();
+        // }
+
+        $usr = new User;
+        $usr->username = "agung";
+        $usr->password = \Hash::make("1234567890");
+        $usr->save();
     }
 }

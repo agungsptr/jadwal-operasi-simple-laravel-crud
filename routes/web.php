@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
+
+// disable route '/register'
+Route::match(["GET", "POST"], "/register", function(){
+    return abort(404);
+});
 
 Route::get('/', 'JadwalOperasiController@index')->name('op.index');
 
@@ -28,3 +34,5 @@ Route::group(['prefix' => 'list'], function () {
     Route::resource('/tindakan', 'ListTindakanController');
     Route::resource('/status', 'ListStatusController');
 });
+
+Route::get('/home', 'HomeController@index')->name('home');

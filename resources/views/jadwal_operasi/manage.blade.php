@@ -18,11 +18,19 @@
         @endif
 
         <h1 class="display-4">Manage Jadwal Operasi</h1>
+
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-success float-right mb-3" data-toggle="modal"
             data-target="#staticBackdrop">
             Tambah
         </button>
+
+        @auth
+        <a class="btn btn-primary float-right mr-2 mb-3" href="{{route('dokter.index')}}">List Dokter</a>
+        <a class="btn btn-primary float-right mr-2 mb-3" href="{{route('tindakan.index')}}">List Tindakan</a>
+        <a class="btn btn-primary float-right mr-2 mb-3" href="{{route('status.index')}}">List Status</a>
+        @endauth
+
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
