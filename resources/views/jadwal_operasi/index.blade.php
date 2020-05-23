@@ -24,8 +24,8 @@
 
         .elip {
             white-space: nowrap;
-            width: 150px;
             overflow: hidden;
+            width: 145px;
             text-overflow: ellipsis;
         }
 
@@ -36,6 +36,7 @@
         p {
             margin: 0;
         }
+
     </style>
 </head>
 
@@ -73,56 +74,51 @@
                 <!-- start slide data -->
                 <div id="slide-data" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner shadow">
-                        <?php
-                        for ($i = 0; $i < count($list); $i++) {
-                        ?>
-                        <div class="carousel-item <?php echo ($i == 0) ? 'active' : '' ?>">
+                        {{dd($list)}}                        
+                        @for ($i = 0; $i < count($list); $i++)
+                        <div class="carousel-item {{ ($i == 0) ? 'active' : '' }}">
                             <table class="table table-striped table-bordered">
-                                <thead class="thead-dark">
+                                <thead class="thead-dark text-center">
                                     <tr>
                                         <th>Nama Pasien</th>
                                         <th>Nama Dokter</th>
                                         <th>Tindakan</th>
                                         <th>Status</th>
-                                        <th>Jam Masuk</th>
-                                        <th>Jam Selesai</th>
+                                        <th>Masuk</th>
+                                        <th>Keluar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($list[$i] as $op)
                                     <tr>
                                         <td>
-                                            <strong>
-                                                <p class="elip">{{strtoupper($op->pasien)}}</p>
-                                            </strong>
+                                            <p class="elip"><strong>{{strtoupper($op->pasien)}}</strong></p>
                                         </td>
                                         <td>
                                             <p class="elip">{{strtoupper($op->dokter)}}</p>
                                         </td>
                                         <td>
-                                            {{strtoupper($op->tindakan)}}
+                                            <p class="elip">{{strtoupper($op->tindakan)}}</p>
                                         </td>
                                         <td class="text-center">
                                             <h5>
-                                                <span class="badge badge-pill badge-primary">
-                                                    {{strtoupper($op->status)}}
+                                                <span class="badge badge-pill badge-primary">                                                    
+                                                    <p class="elip">{{strtoupper($op->status)}}</p>
                                                 </span>
                                             </h5>
                                         </td>
                                         <td class="text-danger text-center">
-                                            <h5><strong>{{substr($op->jam_masuk, 11, 19)}}</strong></h5>
+                                            <h5><strong>{{substr($op->jam_masuk, 11, 16)}}</strong></h5>
                                         </td>
                                         <td class="text-success text-center">
-                                            <h5><strong>{{substr($op->jam_keluar, 11, 19)}}</strong></h5>
+                                            <h5><strong>{{substr($op->jam_keluar, 11, 16)}}</strong></h5>
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-                        <?php
-                        }
-                        ?>
+                        @endfor
                     </div>
                 </div>
             </div>
@@ -143,12 +139,12 @@
     </script>
     <script src="/js/jquery.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov',
                 'DES'
             ];
             const days = ['MINGGU', 'SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU']
-            setInterval(function() {
+            setInterval(function () {
                 var dt = new Date();
                 $('#datetime').html('Operasi ' + dt.getDate() + ' ' + months[dt
                         .getMonth()] + ' ' + dt
@@ -156,6 +152,7 @@
                 );
             }, 1000);
         });
+
     </script>
 </body>
 
