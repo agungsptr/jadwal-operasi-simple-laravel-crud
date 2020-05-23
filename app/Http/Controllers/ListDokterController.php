@@ -9,10 +9,10 @@ use App\ListDokter;
 class ListDokterController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Display a listing of the resource.
@@ -52,7 +52,7 @@ class ListDokterController extends Controller
                 'nama.unique' => 'Nama dokter sudah diisi',
             ],
         );
-        
+
         ListDokter::create($request->all());
         return redirect()->route('dokter.index')->with('status', 'Berhasil menambah dokter');
     }
@@ -76,7 +76,8 @@ class ListDokterController extends Controller
      */
     public function edit($id)
     {
-        abort(404);
+        $dokter = ListDokter::findOrFail($id);
+        return view('list_dokter.edit', ['dokter' => $dokter]);
     }
 
     /**
@@ -88,7 +89,21 @@ class ListDokterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        abort(404);
+        $request->validate(
+            [
+                'nama' => "required|unique:list_dokter",
+            ],
+            [
+                'nama.required' => 'Nama dokter harus diisi',
+                'nama.unique' => 'Nama dokter sudah diisi',
+            ],
+        );
+
+        $dokter = ListDokter::findOrFail($id);
+        $dokter->nama = $request->get('nama');
+        $dokter->save();
+
+        return redirect()->route('dokter.index')->with('status', "Berhasil mengedit dokter $dokter->nama");
     }
 
     /**
@@ -99,6 +114,10 @@ class ListDokterController extends Controller
      */
     public function destroy($id)
     {
-        abort(404);
+        $dokter = ListDokter::findOrFail($id);
+        $nama = $dokter->nama;
+        $dokter->delete();
+
+        return redirect()->route('dokter.index')->with('status', "Berhasil menghapus dokter $nama");
     }
 }

@@ -8,10 +8,10 @@ use App\ListTindakan;
 
 class ListTindakanController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Display a listing of the resource.
@@ -75,7 +75,8 @@ class ListTindakanController extends Controller
      */
     public function edit($id)
     {
-        abort(404);
+        $tindakan = ListTindakan::findOrFail($id);
+        return view('list_tindakan.edit', ['tindakan' => $tindakan]);
     }
 
     /**
@@ -87,7 +88,21 @@ class ListTindakanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        abort(404);
+        $request->validate(
+            [
+                'tindakan' => "required|unique:list_tindakan",
+            ],
+            [
+                'tindakan.required' => 'Tindakan harus diisi',
+                'tindakan.unique' => 'Tindakan sudah diisi',
+            ],
+        );
+
+        $tindakan = ListTindakan::findOrFail($id);
+        $tindakan->tindakan = $request->get('tindakan');
+        $tindakan->save();
+
+        return redirect()->route('tindakan.index')->with('status', "Berhasil mengedit tindakan $tindakan->tindakan");
     }
 
     /**
@@ -98,6 +113,10 @@ class ListTindakanController extends Controller
      */
     public function destroy($id)
     {
-        abort(404);
+        $tindakan = ListTindakan::findOrFail($id);
+        $val = $tindakan->tindakan;
+        $tindakan->delete();
+
+        return redirect()->route('tindakan.index')->with('status', "Berhasil menghapus tindakan $val");
     }
 }

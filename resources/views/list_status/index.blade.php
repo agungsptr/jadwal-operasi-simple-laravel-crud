@@ -9,16 +9,31 @@
 </head>
 
 <body>
+    {{-- alert --}}
+    @if (session('status'))
+    {{session('status')}}
+    @endif
+
     <table>
         <thead>
             <th>No</th>
             <th>Status</th>
+            <th>Action</th>
         </thead>
         <tbody>
             @foreach ($datas as $data)
             <tr>
                 <td>{{$loop->iteration}}</td>
                 <td>{{$data->status}}</td>
+                <td>
+                    <a href="{{ route('status.edit', ['status'=>$data->id]) }}">Edit</a>
+                    <form onsubmit="return confirm('Delete {{$data->status}} ?')" class=" float-left ml-1"
+                        action="{{ route('status.destroy', ['status'=>$data->id]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </tbody>
@@ -33,7 +48,7 @@
 <form action="{{ route('status.store') }}" method="post">
     @csrf
     <label for="">Status :</label>
-    <input name="status" type="nama" required>
+    <input name="status" type="text" required>
     @error('status')
     <div class="invalid-feedback">
         {{$message}}

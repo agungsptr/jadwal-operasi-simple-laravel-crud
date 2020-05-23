@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ListStatus;
-
+use ListStatus as GlobalListStatus;
 
 class ListStatusController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Display a listing of the resource.
@@ -52,7 +52,7 @@ class ListStatusController extends Controller
                 'status.unique' => 'Status sudah diisi',
             ],
         );
-        
+
         ListStatus::create($request->all());
         return redirect()->route('status.index')->with('status', 'Berhasil menambah status');
     }
@@ -76,7 +76,8 @@ class ListStatusController extends Controller
      */
     public function edit($id)
     {
-        abort(404);
+        $status = ListStatus::findOrFail($id);
+        return view('list_status.edit', ['status' => $status]);
     }
 
     /**
@@ -88,7 +89,20 @@ class ListStatusController extends Controller
      */
     public function update(Request $request, $id)
     {
-        abort(404);
+        $request->validate(
+            [
+                'status' => "required|unique:list_status",
+            ],
+            [
+                'status.required' => 'Status harus diisi',
+                'status.unique' => 'Status sudah diisi',
+            ],
+        );
+        $status = ListStatus::findOrFail($id);
+        $status->status = $request->get('status');
+        $status->save();
+
+        return redirect()->route('status.index')->with('status', "Berhasil mengedit status $status->status");
     }
 
     /**
@@ -99,6 +113,10 @@ class ListStatusController extends Controller
      */
     public function destroy($id)
     {
-        abort(404);
+        $status = ListStatus::findOrFail($id);
+        $val = $status->status;
+        $status->delete();
+
+        return redirect()->route('status.index')->with('status', "Berhasil menghapus status $val");
     }
 }

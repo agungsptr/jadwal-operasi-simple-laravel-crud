@@ -35,4 +35,4 @@ Route::group(['prefix' => 'list'], function () {
     Route::resource('/status', 'ListStatusController');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('user', 'UserController');
