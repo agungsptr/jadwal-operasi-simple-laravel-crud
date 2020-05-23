@@ -35,12 +35,13 @@ class JadwalOperasiController extends Controller
                 $ten = null;
             }
 
-            if ($i < $length + 1) {
+            if ($i == $length - 1) {
                 $list[$x] = $ten;
             }
         }
 
-        return view('jadwal_operasi.index', ['data' => $jp, 'list' => $list]);
+        // return view('jadwal_operasi.index', ['list' => $list]);
+        return $list;
     }
 
     /**
