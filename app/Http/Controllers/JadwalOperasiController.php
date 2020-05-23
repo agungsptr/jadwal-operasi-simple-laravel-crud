@@ -20,28 +20,23 @@ class JadwalOperasiController extends Controller
         $jp = JadwalOperasi::all();
 
         $list = [];
-        $x = 0;
-        $a = 0;
+        $ten = [];
         $length = count($jp);
 
         for ($i = 1; $i < $length + 1; $i++) {
-            $ten[$a] = $jp[$i - 1];
-            $a++;
+            array_push($ten, $jp[$i - 1]);
 
             if ($i % 10 == 0) {
-                $list[$x] = $ten;
-                $x++;
-                $a = 0;
-                $ten = null;
+                array_push($list, $ten);
+                $ten = [];
             }
 
-            if ($i == $length - 1) {
-                $list[$x] = $ten;
+            if ($i == $length && !empty($ten)) {
+                array_push($list, $ten);
             }
         }
 
-        // return view('jadwal_operasi.index', ['list' => $list]);
-        return $list;
+        return view('jadwal_operasi.index', ['list' => $list]);
     }
 
     /**
