@@ -38,8 +38,8 @@
                 <td>{{$op->pasien}}</td>
                 <td>{{$op->dokter}}</td>
                 <td>{{$op->tindakan}}</td>
-                <td>{{substr($op->jam_masuk, 11, 16)}}</td>
-                <td>{{substr($op->jam_keluar, 11, 16)}}</td>
+                <td>{{substr($op->jam_masuk, 11, 5)}}</td>
+                <td>{{substr($op->jam_keluar, 11, 5)}}</td>
                 <td>{{$op->status}}</td>
                 <td>
                     <a href="{{ route('op.manage.edit', ['id'=>$op->id]) }}" class="float-left btn btn-sm btn-info">Edit</a>

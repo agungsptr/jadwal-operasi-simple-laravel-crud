@@ -25,7 +25,7 @@
         .elip {
             white-space: nowrap;
             overflow: hidden;
-            width: 145px;
+            width: 140px;
             text-overflow: ellipsis;
         }
 
@@ -74,7 +74,7 @@
                 <!-- start slide data -->
                 <div id="slide-data" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner shadow">
-                        {{dd($list)}}                        
+                        {{dd($list)}}
                         @for ($i = 0; $i < count($list); $i++)
                         <div class="carousel-item {{ ($i == 0) ? 'active' : '' }}">
                             <table class="table table-striped table-bordered">
@@ -108,10 +108,10 @@
                                             </h5>
                                         </td>
                                         <td class="text-danger text-center">
-                                            <h5><strong>{{substr($op->jam_masuk, 11, 16)}}</strong></h5>
+                                            <h5><strong>{{substr($op->jam_masuk, 11, 5)}}</strong></h5>
                                         </td>
                                         <td class="text-success text-center">
-                                            <h5><strong>{{substr($op->jam_keluar, 11, 16)}}</strong></h5>
+                                            <h5><strong>{{substr($op->jam_keluar, 11, 5)}}</strong></h5>
                                         </td>
                                     </tr>
                                     @endforeach
