@@ -29,6 +29,7 @@
         <a class="btn btn-primary float-right mr-2 mb-3" href="{{route('dokter.index')}}">List Dokter</a>
         <a class="btn btn-primary float-right mr-2 mb-3" href="{{route('tindakan.index')}}">List Tindakan</a>
         <a class="btn btn-primary float-right mr-2 mb-3" href="{{route('status.index')}}">List Status</a>
+        <a class="btn btn-primary float-right mr-2 mb-3" href="{{route('user.index')}}">User</a>
         @endauth
 
         <table class="table table-striped table-bordered">
