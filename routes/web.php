@@ -12,18 +12,27 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
-Route::get('/', function () {
-    return redirect('/operasi');
+// disable route '/register'
+Route::match(["GET", "POST"], "/register", function(){
+    return abort(404);
 });
 
-Route::group(['prefix' => 'operasi'], function () {
-    Route::get('/', 'JadwalOperasiController@index')->name('op.index');
-    Route::get('/manage', 'JadwalOperasiController@create')->name('op.manage');
-    Route::post('/manage', 'JadwalOperasiController@store')->name('op.manage.store');
-    Route::get('/manage/{id}/edit', 'JadwalOperasiController@edit')->name('op.manage.edit');
-    Route::put('/manage/{id}', 'JadwalOperasiController@update')->name('op.manage.update');
-    Route::delete('/manage/{id}', 'JadwalOperasiController@destroy')->name('op.manage.delete');
+Route::get('/', 'JadwalOperasiController@index')->name('op.index');
 
-    Route::get('/data/jadwal', 'GetDataController@dataJadwal')->name('getdata.jadwal');
+Route::group(['prefix' => 'manage'], function () {
+    Route::get('/', 'JadwalOperasiController@create')->name('op.manage');
+    Route::post('/', 'JadwalOperasiController@store')->name('op.manage.store');
+    Route::get('/{id}/edit', 'JadwalOperasiController@edit')->name('op.manage.edit');
+    Route::put('/{id}', 'JadwalOperasiController@update')->name('op.manage.update');
+    Route::delete('/{id}', 'JadwalOperasiController@destroy')->name('op.manage.delete');
 });
+
+Route::group(['prefix' => 'list'], function () {
+    Route::resource('/dokter', 'ListDokterController');
+    Route::resource('/tindakan', 'ListTindakanController');
+    Route::resource('/status', 'ListStatusController');
+});
+
+Route::resource('user', 'UserController');

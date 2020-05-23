@@ -5,27 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <title>Jadwal Dokter</title>
 </head>
 
 <body>
     <div class="container">
+
+        {{-- alert --}}
+        @if (session('status'))
+        {{session('status')}}
+        @endif
+
         <h1 class="display-4">Manage Jadwal Operasi</h1>
+
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-success float-right mb-3" data-toggle="modal"
             data-target="#staticBackdrop">
             Tambah
         </button>
+
+        @auth
+        <a class="btn btn-primary float-right mr-2 mb-3" href="{{route('dokter.index')}}">List Dokter</a>
+        <a class="btn btn-primary float-right mr-2 mb-3" href="{{route('tindakan.index')}}">List Tindakan</a>
+        <a class="btn btn-primary float-right mr-2 mb-3" href="{{route('status.index')}}">List Status</a>
+        <a class="btn btn-primary float-right mr-2 mb-3" href="{{route('user.index')}}">User</a>
+        @endauth
+
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>Nama Pasien</th>
-                    <th>Nama Dokter</th>
-                    <th>Tindakan</th>
-                    <th>Status</th>
-                    <th>Jam Masuk</th>
-                    <th>Jam Selesai</th>
+                    <th style="width: 15%">Nama Pasien</th>
+                    <th style="width: 15%">Nama Dokter</th>
+                    <th style="width: 25%">Tindakan</th>
+                    <th style="width: 10%">Jam Masuk</th>
+                    <th style="width: 10%">Jam Selesai</th>
+                    <th style="width: 10%">Status</th>
                     <th style="width: 130px;">Action</th>
                 </tr>
             </thead>
@@ -35,9 +50,9 @@
                     <td>{{$op->pasien}}</td>
                     <td>{{$op->dokter}}</td>
                     <td>{{$op->tindakan}}</td>
+                    <td>{{substr($op->jam_masuk, 11, 19)}}</td>
+                    <td>{{substr($op->jam_keluar, 11, 19)}}</td>
                     <td>{{$op->status}}</td>
-                    <td>{{$op->created_at}}</td>
-                    <td>{{$op->jam_keluar}}</td>
                     <td>
                         <a href="{{ route('op.manage.edit', ['id'=>$op->id]) }}"
                             class="float-left btn btn-sm btn-info">Edit</a>
@@ -53,7 +68,7 @@
             </tbody>
         </table>
 
-        <br><br><br>
+        {{$data->links()}}
 
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
@@ -75,21 +90,34 @@
                             </div>
                             <div>
                                 <label for="">Nama Dokter</label>
-                                <input class="form-control" name="dokter" type="text" required>
+                                <select class="form-control" name="dokter" id="" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listDokter as $ld)
+                                        <option value="{{$ld->nama}}">{{$ld->nama}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div>
                                 <label for="">Tindakan</label>
-                                <input class="form-control" name="tindakan" type="text" required>
+                                <select class="form-control" name="tindakan" id="" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listTindakan as $lt)
+                                        <option value="{{$lt->tindakan}}">{{$lt->tindakan}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div>
                                 <label for="">status</label>
                                 <select class="form-control" name="status" id="" required>
-                                    <option value="menuggu">Menuggu</option>
-                                    <option value="proses">Proses</option>
-                                    <option value="selesai">Selesai</option>
-                                    <option value="pemulihan">Diruang Pemulihan</option>
-                                    <option value="inap">Diruang Inap</option>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listStatus as $ls)
+                                        <option value="{{$ls->status}}">{{$ls->status}}</option>
+                                    @endforeach
                                 </select>
+                            </div>
+                            <div>
+                                <label for="">Jam Masuk</label>
+                                <input class="form-control" name="jam_masuk" type="datetime-local" required>
                             </div>
                             <div>
                                 <label for="">Jam Selesai</label>
@@ -97,7 +125,7 @@
                             </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button id="btn_simpan" type="submit" class="btn btn-primary">Simpan</button>
                         </form>
                     </div>
                 </div>

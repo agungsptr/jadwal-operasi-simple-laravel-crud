@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class JadwalOperasi extends Model
 {
     protected $table = "JadwalOperasi";
-    protected $fillable = ['pasien', 'dokter', 'tindakan', 'status', 'jam_keluar'];
+    protected $fillable = ['pasien', 'dokter', 'tindakan', 'status', 'jam_keluar', 'jam_masuk'];
+    public $timestamps = false;
 }

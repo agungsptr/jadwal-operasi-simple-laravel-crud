@@ -19,8 +19,8 @@ class JadwalOperasi extends Migration
             $table->string('dokter', 191);
             $table->text('tindakan');
             $table->string('status', 64);
+            $table->timestamp('jam_masuk');
             $table->timestamp('jam_keluar');
-            $table->timestamps();
         });
     }
 

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\JadwalOperasi;
+use App\ListDokter;
+use App\ListTindakan;
+use App\ListStatus;
 
 class JadwalOperasiController extends Controller
 {
@@ -47,7 +50,16 @@ class JadwalOperasiController extends Controller
      */
     public function create()
     {
-        return view('jadwal_operasi.manage', ['data' => JadwalOperasi::all()]);
+        $data = JadwalOperasi::paginate(10);
+        $listDokter = ListDokter::all();
+        $listTindakan = ListTindakan::all();
+        $listStatus = ListStatus::all();
+        return view('jadwal_operasi.manage', [
+            'data' => $data,
+            'listDokter' => $listDokter,
+            'listTindakan' => $listTindakan,
+            'listStatus' => $listStatus
+        ]);
     }
 
     /**
