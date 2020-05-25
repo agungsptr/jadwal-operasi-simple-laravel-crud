@@ -1,8 +1,8 @@
 <?php
 
-use App\JadwalOperasi;
 use App\ListDokter;
-use App\User;
+use App\ListTindakan;
+use App\ListStatus;
 use Illuminate\Database\Seeder;
 
 class JadwalOperasiSeeder extends Seeder
@@ -14,25 +14,53 @@ class JadwalOperasiSeeder extends Seeder
      */
     public function run()
     {
-        // for ($i=0; $i < 15; $i++) { 
-        //     $jo = new ListDokter;
-        //     $jo->nama = "dok$i";
-        //     $jo->save();
-        // }
+        $dokter = [
+            "dr. Agus Thoriq, Sp.OG",
+            "dr. I Made Putra Juliawan, Sp.OG",
+            "dr. Rusiyanti, Sp.OG",
+            "dr. Adib Ahmad Shammakh, Sp.OG",
+            "dr. Windiana Rambu, M.Kes., Sp.OG",
+            "dr. Ahmad Fadhli Busthomi, M. Biomed, Sp.OG",
+            "dr. Muhammad Rizkinov Jumsa, M.Kes, Sp.OG",
+            "dr. Sugianto Prajitno, Sp.BA",
+            "dr. Mochammad Alfian Sulaksana, Sp.THT-KL",
+        ];
 
-        // $usr = new User;
-        // $usr->username = "agung";
-        // $usr->password = \Hash::make("1234567890");
-        // $usr->save();
+        $tindakan = [
+            "Operasi Sesar",
+            "Operasi Sesar + MOW",
+            "Kuret",
+            "Laparatomi",
+            "Miomektomy",
+            "Salpingektomy",
+            "Histerektomy",
+            "Sirkumsisi",
+            "Tonsilektomi",
+        ];
 
-        // for ($i=0; $i < 20; $i++) { 
-        //     $jo = new JadwalOperasi;
-        //     $j =$i+1;
-        //     $jo->pasien = "pasien $j";
-        //     $jo->dokter = "dokter $j";
-        //     $jo->tindakan = "tindakan $j";
-        //     $jo->status = "status $j";
-        //     $jo->save();
-        // }
+        $status = [
+            "Persiapan",
+            "Operasi Berlangsung",
+            "Di Ruang Pemulihan",
+            "Di Ruang Inap",
+        ];
+
+        foreach ($dokter as $dok) {
+            $dokter = new ListDokter;
+            $dokter->nama = $dok;
+            $dokter->save();
+        }
+
+        foreach ($tindakan as $tindak) {
+            $tindakan = new ListTindakan;
+            $tindakan->tindakan = $tindak;
+            $tindakan->save();
+        }
+
+        foreach ($status as $sts) {
+            $status = new ListStatus;
+            $status->status = $sts;
+            $status->save();
+        }
     }
 }

@@ -66,6 +66,24 @@ class JadwalOperasiController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate(
+            [
+                'pasien => "required',
+                'dokter => "required',
+                'tindakan' => "required",
+                'status' => "required",
+                'jam_masuk' => "required",
+                'jam_keluar' => "required",
+            ],
+            [
+                'pasien.required' => 'Tindakan harus diisi',
+                'dokter.required' => 'Tindakan harus diisi',
+                'tindakan.required' => 'Tindakan harus diisi',
+                'status.required' => 'Tindakan harus diisi',
+                'jam_masuk.required' => 'Tindakan harus diisi',
+                'jam_keluar.required' => 'Tindakan harus diisi',
+            ],
+        );
         JadwalOperasi::create($request->all());
         return redirect()->route('op.manage')->with('status', 'Berhasil menambah antrian');
     }
@@ -102,6 +120,24 @@ class JadwalOperasiController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate(
+            [
+                'pasien => "required',
+                'dokter => "required',
+                'tindakan' => "required",
+                'status' => "required",
+                'jam_masuk' => "required",
+                'jam_keluar' => "required",
+            ],
+            [
+                'pasien.required' => 'Tindakan harus diisi',
+                'dokter.required' => 'Tindakan harus diisi',
+                'tindakan.required' => 'Tindakan harus diisi',
+                'status.required' => 'Tindakan harus diisi',
+                'jam_masuk.required' => 'Tindakan harus diisi',
+                'jam_keluar.required' => 'Tindakan harus diisi',
+            ],
+        );
         $jo = JadwalOperasi::findOrFail($id);
         $jo->pasien = $request->get('pasien');
         $jo->dokter = $request->get('dokter');

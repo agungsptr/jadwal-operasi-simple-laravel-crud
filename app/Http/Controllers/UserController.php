@@ -147,7 +147,12 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $username = $user->username;
-        $user->delete();
+        
+        if ($username != "root") {
+            $user->delete();
+        } else {
+            return redirect()->route('user.index')->with('status', "User $username tidak dapat dihapus");
+        }
 
         return redirect()->route('user.index')->with('status', "Berhasil menghapus user $username");
     }

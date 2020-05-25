@@ -81,6 +81,12 @@
                                 <option value="{{$ld->nama}}">{{$ld->nama}}</option>
                                 @endforeach
                             </select>
+
+                            @error('dokter')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
                         </div>
                         <div>
                             <label for="">Tindakan</label>
@@ -90,6 +96,12 @@
                                 <option value="{{$lt->tindakan}}">{{$lt->tindakan}}</option>
                                 @endforeach
                             </select>
+
+                            @error('tindakan')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
                         </div>
                         <div>
                             <label for="">status</label>
@@ -99,14 +111,32 @@
                                 <option value="{{$ls->status}}">{{$ls->status}}</option>
                                 @endforeach
                             </select>
+
+                            @error('status')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
                         </div>
                         <div>
                             <label for="">Jam Masuk</label>
                             <input class="form-control" name="jam_masuk" type="datetime-local" required>
+
+                            @error('jam_masuk')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
                         </div>
                         <div>
                             <label for="">Jam Selesai</label>
                             <input class="form-control" name="jam_keluar" type="datetime-local" required>
+
+                            @error('jam_keluar')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
                         </div>
                         <hr>
                         <button type="submit" class="btn btn-primary float-right">Simpan</button>
