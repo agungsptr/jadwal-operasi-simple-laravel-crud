@@ -25,14 +25,14 @@ class JadwalOperasiSeeder extends Seeder
         // $usr->password = \Hash::make("1234567890");
         // $usr->save();
 
-        for ($i=0; $i < 20; $i++) { 
-            $jo = new JadwalOperasi;
-            $j =$i+1;
-            $jo->pasien = "pasien $j";
-            $jo->dokter = "dokter $j";
-            $jo->tindakan = "tindakan $j";
-            $jo->status = "status $j";
-            $jo->save();
-        }
+        // for ($i=0; $i < 20; $i++) { 
+        //     $jo = new JadwalOperasi;
+        //     $j =$i+1;
+        //     $jo->pasien = "pasien $j";
+        //     $jo->dokter = "dokter $j";
+        //     $jo->tindakan = "tindakan $j";
+        //     $jo->status = "status $j";
+        //     $jo->save();
+        // }
     }
 }
