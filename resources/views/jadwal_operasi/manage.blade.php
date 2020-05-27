@@ -21,32 +21,32 @@
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th style="width: 10px">#</th>
-                <th>Nama Pasien</th>
-                <th>Nama Dokter</th>
-                <th>Tindakan</th>
-                <th>Jam Masuk</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th class="align-middle">Nama Pasien</th>
+                <th class="align-middle">Nama Dokter</th>
+                <th class="align-middle">Tindakan</th>
+                <th class="align-middle">Tanggal</th>
+                <th style="width: 50px" class="align-middle">Jam Masuk</th>
+                <th class="align-middle">Status</th>
+                <th class="align-middle">Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($data as $op)
             <tr>
-                <td>{{$loop->iteration}}</td>
                 <td>{{$op->pasien}}</td>
                 <td>{{$op->dokter}}</td>
                 <td>{{$op->tindakan}}</td>
+                <td>{{substr($op->jam_masuk, 0, 10)}}</td>
                 <td>{{substr($op->jam_masuk, 11, 5)}}</td>
                 <td>{{$op->status}}</td>
                 <td>
                     <a href="{{ route('op.manage.edit', ['id'=>$op->id]) }}"
-                        class="float-left btn btn-sm btn-info">Edit</a>
-                    <form onsubmit="return confirm('Delete {{$op->pasien}} ?')" class=" float-left ml-1"
+                        class="float-left btn btn-sm btn-info mr-1 mb-1">Edit</a>
+                    <form onsubmit="return confirm('Delete {{$op->pasien}} ?')" class="float-left"
                         action="{{ route('op.manage.delete', ['id'=>$op->id]) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        <button type="submit" class="btn btn-danger btn-sm btn-block">Delete</button>
                     </form>
                 </td>
             </tr>
@@ -132,7 +132,7 @@
                         <hr>
                         <button type="submit" class="btn btn-primary float-right">Simpan</button>
                     </form>
-                </div> 
+                </div>
             </div>
         </div>
     </div>

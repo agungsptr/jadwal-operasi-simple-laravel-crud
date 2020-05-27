@@ -18,7 +18,9 @@ class JadwalOperasiController extends Controller
      */
     public function index()
     {
-        $jp = JadwalOperasi::whereDate('jam_masuk', Carbon::today())->get();
+        $jp = JadwalOperasi::whereDate('jam_masuk', Carbon::today())
+            ->orderBy('jam_masuk', 'ASC')
+            ->get();
 
         $list = [];
         $ten = [];
@@ -47,7 +49,7 @@ class JadwalOperasiController extends Controller
      */
     public function create()
     {
-        $data = JadwalOperasi::paginate(10);
+        $data = JadwalOperasi::orderBy('jam_masuk', 'ASC')->paginate(10);
         $listDokter = ListDokter::all();
         $listTindakan = ListTindakan::all();
         $listStatus = ListStatus::all();
