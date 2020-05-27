@@ -20,7 +20,7 @@ class JadwalOperasi extends Migration
             $table->text('tindakan');
             $table->string('status', 64);
             $table->timestamp('jam_masuk')->nullable();
-            $table->timestamp('jam_keluar')->nullable();
+            // $table->timestamp('jam_keluar')->nullable();
         });
     }
 

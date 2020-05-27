@@ -7,7 +7,7 @@
     {{-- alert --}}
     @if (session('status'))
     <div class="alert alert-primary" role="alert">
-        {{session('status')}}        
+        {{session('status')}}
     </div>
     @endif
 
@@ -26,7 +26,6 @@
                 <th>Nama Dokter</th>
                 <th>Tindakan</th>
                 <th>Jam Masuk</th>
-                <th>Jam Selesai</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -39,11 +38,12 @@
                 <td>{{$op->dokter}}</td>
                 <td>{{$op->tindakan}}</td>
                 <td>{{substr($op->jam_masuk, 11, 5)}}</td>
-                <td>{{substr($op->jam_keluar, 11, 5)}}</td>
                 <td>{{$op->status}}</td>
                 <td>
-                    <a href="{{ route('op.manage.edit', ['id'=>$op->id]) }}" class="float-left btn btn-sm btn-info">Edit</a>
-                    <form onsubmit="return confirm('Delete {{$op->pasien}} ?')" class=" float-left ml-1" action="{{ route('op.manage.delete', ['id'=>$op->id]) }}" method="POST">
+                    <a href="{{ route('op.manage.edit', ['id'=>$op->id]) }}"
+                        class="float-left btn btn-sm btn-info">Edit</a>
+                    <form onsubmit="return confirm('Delete {{$op->pasien}} ?')" class=" float-left ml-1"
+                        action="{{ route('op.manage.delete', ['id'=>$op->id]) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
@@ -57,7 +57,8 @@
     {{$data->links()}}
 
     <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -69,11 +70,11 @@
                 <div class="modal-body">
                     <form action="{{ route('op.manage.store') }}" method="POST">
                         @csrf
-                        <div>
+                        <div class="mb-2">
                             <label for="">Nama Pasien</label>
                             <input class="form-control" name="pasien" type="text" required>
                         </div>
-                        <div>
+                        <div class="mb-2">
                             <label for="">Nama Dokter</label>
                             <select class="form-control" name="dokter" id="" required>
                                 <option value="">Pilih</option>
@@ -88,7 +89,7 @@
                             </div>
                             @enderror
                         </div>
-                        <div>
+                        <div class="mb-2">
                             <label for="">Tindakan</label>
                             <select class="form-control" name="tindakan" id="" required>
                                 <option value="">Pilih</option>
@@ -103,8 +104,8 @@
                             </div>
                             @enderror
                         </div>
-                        <div>
-                            <label for="">status</label>
+                        <div class="mb-2">
+                            <label for="">Status</label>
                             <select class="form-control" name="status" id="" required>
                                 <option value="">Pilih</option>
                                 @foreach ($listStatus as $ls)
@@ -118,7 +119,7 @@
                             </div>
                             @enderror
                         </div>
-                        <div>
+                        <div class="mb-2">
                             <label for="">Jam Masuk</label>
                             <input class="form-control" name="jam_masuk" type="datetime-local" required>
 
@@ -128,20 +129,10 @@
                             </div>
                             @enderror
                         </div>
-                        <div>
-                            <label for="">Jam Selesai</label>
-                            <input class="form-control" name="jam_keluar" type="datetime-local" required>
-
-                            @error('jam_keluar')
-                            <div class="invalid-feedback">
-                                {{$message}}
-                            </div>
-                            @enderror
-                        </div>
                         <hr>
                         <button type="submit" class="btn btn-primary float-right">Simpan</button>
                     </form>
-                </div>
+                </div> 
             </div>
         </div>
     </div>

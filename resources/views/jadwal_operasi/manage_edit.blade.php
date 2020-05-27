@@ -39,9 +39,9 @@
                             </select>
                         </div>
                         <div>
-                            <label for="">Jam Selesai</label>
+                            <label for="">Jam Masuk</label>
                             <input class="form-control" name="jam_keluar" type="datetime-local"
-                                value="{{str_replace(" ","T",$data->jam_keluar)}}" required>
+                                value="{{str_replace(" ","T",$data->jam_masuk)}}" required>
                         </div>
                         <a class="btn btn-primary mt-3" href="{{route("op.manage")}}">Kembali</a>
                         <button type="submit" class="btn btn-warning mt-3 float-right">Simpan</button>

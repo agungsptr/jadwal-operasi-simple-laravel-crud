@@ -85,7 +85,6 @@
                                         <th>Tindakan</th>
                                         <th>Status</th>
                                         <th>Masuk</th>
-                                        <th>Keluar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -109,9 +108,6 @@
                                         </td>
                                         <td class="text-danger text-center">
                                             <h5><strong>{{substr($op->jam_masuk, 11, 5)}}</strong></h5>
-                                        </td>
-                                        <td class="text-success text-center">
-                                            <h5><strong>{{substr($op->jam_keluar, 11, 5)}}</strong></h5>
                                         </td>
                                     </tr>
                                     @endforeach

@@ -7,6 +7,7 @@ use App\JadwalOperasi;
 use App\ListDokter;
 use App\ListTindakan;
 use App\ListStatus;
+use Illuminate\Support\Carbon;
 
 class JadwalOperasiController extends Controller
 {
@@ -17,7 +18,7 @@ class JadwalOperasiController extends Controller
      */
     public function index()
     {
-        $jp = JadwalOperasi::all();
+        $jp = JadwalOperasi::whereDate('jam_masuk', Carbon::today())->get();
 
         $list = [];
         $ten = [];
@@ -73,7 +74,7 @@ class JadwalOperasiController extends Controller
                 'tindakan' => "required",
                 'status' => "required",
                 'jam_masuk' => "required",
-                'jam_keluar' => "required",
+                // 'jam_keluar' => "required",
             ],
             [
                 'pasien.required' => 'Tindakan harus diisi',
@@ -81,7 +82,7 @@ class JadwalOperasiController extends Controller
                 'tindakan.required' => 'Tindakan harus diisi',
                 'status.required' => 'Tindakan harus diisi',
                 'jam_masuk.required' => 'Tindakan harus diisi',
-                'jam_keluar.required' => 'Tindakan harus diisi',
+                // 'jam_keluar.required' => 'Tindakan harus diisi',
             ],
         );
         JadwalOperasi::create($request->all());
@@ -127,7 +128,7 @@ class JadwalOperasiController extends Controller
                 'tindakan' => "required",
                 'status' => "required",
                 'jam_masuk' => "required",
-                'jam_keluar' => "required",
+                // 'jam_keluar' => "required",
             ],
             [
                 'pasien.required' => 'Tindakan harus diisi',
@@ -135,7 +136,7 @@ class JadwalOperasiController extends Controller
                 'tindakan.required' => 'Tindakan harus diisi',
                 'status.required' => 'Tindakan harus diisi',
                 'jam_masuk.required' => 'Tindakan harus diisi',
-                'jam_keluar.required' => 'Tindakan harus diisi',
+                // 'jam_keluar.required' => 'Tindakan harus diisi',
             ],
         );
         $jo = JadwalOperasi::findOrFail($id);
@@ -143,7 +144,7 @@ class JadwalOperasiController extends Controller
         $jo->dokter = $request->get('dokter');
         $jo->tindakan = $request->get('tindakan');
         $jo->status = $request->get('status');
-        $jo->jam_keluar = $request->get('jam_keluar');
+        $jo->jam_masuk = $request->get('jam_masuk');
         $jo->save();
 
         return redirect()->route('op.manage.edit', ['id' => $jo->id])->with('status', "Berhasil mengedit antrian pasien $jo->pasien");
