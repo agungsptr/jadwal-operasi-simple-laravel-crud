@@ -12,7 +12,7 @@ class DisplayController extends Controller
     public function index()
     {
         date_default_timezone_set('Asia/Makassar');
-        $jp = JadwalOperasi::whereDate('jam_masuk', date("Y-m-d 00:00:00"))
+        $jp = JadwalOperasi::whereDate('jam_masuk', Carbon::today())
             ->orderBy('jam_masuk', 'ASC')
             ->get();
 
@@ -33,13 +33,8 @@ class DisplayController extends Controller
             }
         }
 
-        $now = Carbon::today();
-        $date = date("Y-m-d H:i:s");
-
         return view('jadwal_operasi.index', [
             'list' => $list,
-            'now' => $now,
-            'date' => $date,
         ]);
     }
 }
