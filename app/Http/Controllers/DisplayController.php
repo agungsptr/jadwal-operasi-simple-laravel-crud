@@ -11,7 +11,7 @@ class DisplayController extends Controller
 {
     public function index()
     {
-        date_default_timezone_set('UTC');
+        date_default_timezone_set('Asia/Makassar');
         $jp = JadwalOperasi::whereDate('jam_masuk', date("Y-m-d 00:00:00"))
             ->orderBy('jam_masuk', 'ASC')
             ->get();
