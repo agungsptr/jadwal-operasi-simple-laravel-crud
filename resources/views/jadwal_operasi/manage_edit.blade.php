@@ -14,37 +14,41 @@
                             <label for="">Nama Pasien</label>
                             <input class="form-control" name="pasien" type="text" value="{{$data->pasien}}" required>
                         </div>
-                        <div>
+                        <div class="mb-2">
                             <label for="">Nama Dokter</label>
-                            <input class="form-control" name="dokter" type="text" value="{{$data->dokter}}" required>
-                        </div>
-                        <div>
-                            <label for="">Tindakan</label>
-                            <input class="form-control" name="tindakan" type="text" value="{{$data->tindakan}}"
-                                required>
-                        </div>
-                        <div>
-                            <label for="">status</label>
-                            <select class="form-control" name="status" id="" required>
-                                <option value="menuggu" {{$data->tindakan == 'menuggu' ? 'SELECTED':''}}>Menuggu
-                                </option>
-                                <option value="proses" {{$data->tindakan == 'proses' ? 'SELECTED':''}}>Proses</option>
-                                <option value="selesai" {{$data->tindakan == 'selesai' ? 'SELECTED':''}}>Selesai
-                                </option>
-                                <option value="pemulihan" {{$data->tindakan == 'r_pemulihan' ? 'SELECTED':''}}>Diruang
-                                    Pemulihan
-                                </option>
-                                <option value="inap" {{$data->tindakan == 'r_inap' ? 'SELECTED':''}}>Diruang Inap
-                                </option>
+                            <select class="form-control" name="dokter" id="" required>
+                                <option value="">Pilih</option>
+                                @foreach ($listDokter as $ld)
+                                <option {{$data->dokter == $ld->nama ? 'SELECTED' : ''}} value="{{$ld->nama}}">{{$ld->nama}}</option>
+                                @endforeach
                             </select>
                         </div>
-                        <div>
+                        <div class="mb-2">
+                            <label for="">Tindakan</label>
+                            <select class="form-control" name="tindakan" id="" required>
+                                <option value="">Pilih</option>
+                                @foreach ($listTindakan as $lt)
+                                <option {{$data->tindakan == $lt->tindakan ? 'SELECTED' : ''}} value="{{$lt->tindakan}}">{{$lt->tindakan}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label for="">Status</label>
+                            <select class="form-control" name="status" id="" required>
+                                <option value="">Pilih</option>
+                                @foreach ($listStatus as $ls)
+                                <option {{$data->status == $ls->status ? 'SELECTED' : ''}} value="{{$ls->status}}">{{$ls->status}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-2">
                             <label for="">Jam Masuk</label>
-                            <input class="form-control" name="jam_keluar" type="datetime-local"
+                            <input class="form-control" name="jam_masuk" type="datetime-local"
                                 value="{{str_replace(" ","T",$data->jam_masuk)}}" required>
                         </div>
-                        <a class="btn btn-primary mt-3" href="{{route("op.manage")}}">Kembali</a>
-                        <button type="submit" class="btn btn-warning mt-3 float-right">Simpan</button>
+                        <hr>
+                        <a class="btn btn-primary" href="{{route("op.manage")}}">Kembali</a>
+                        <button type="submit" class="btn btn-warning float-right">Simpan</button>
                     </form>
                 </div>
             </div>

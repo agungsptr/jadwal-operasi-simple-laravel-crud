@@ -40,7 +40,7 @@ class JadwalOperasiController extends Controller
             'data' => $data,
             'listDokter' => $listDokter,
             'listTindakan' => $listTindakan,
-            'listStatus' => $listStatus
+            'listStatus' => $listStatus,
         ]);
     }
 
@@ -91,8 +91,16 @@ class JadwalOperasiController extends Controller
      */
     public function edit($id)
     {
+        $listDokter = ListDokter::all();
+        $listTindakan = ListTindakan::all();
+        $listStatus = ListStatus::all();
         $jo = JadwalOperasi::findOrFail($id);
-        return view('jadwal_operasi.manage_edit', ['data' => $jo]);
+        return view('jadwal_operasi.manage_edit', [
+            'data' => $jo,
+            'listDokter' => $listDokter,
+            'listTindakan' => $listTindakan,
+            'listStatus' => $listStatus,
+        ]);
     }
 
     /**

@@ -74,7 +74,6 @@
                 <!-- start slide data -->
                 <div id="slide-data" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner shadow">
-                        {{-- {{dd($list)}} --}}
                         @for ($i = 0; $i < count($list); $i++)
                         <div class="carousel-item {{ ($i == 0) ? 'active' : '' }}">
                             <table class="table table-striped table-bordered">
