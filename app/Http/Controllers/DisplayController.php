@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\JadwalOperasi;
+use Carbon\CarbonTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -31,6 +32,12 @@ class DisplayController extends Controller
             }
         }
 
-        return view('jadwal_operasi.index', ['list' => $list]);
+        $now = Carbon::now();
+        // $timezone = Carbon::timezone();
+        return view('jadwal_operasi.index', [
+            'list' => $list,
+            'now' => $now,
+            // 'zone' => $timezone,
+        ]);
     }
 }

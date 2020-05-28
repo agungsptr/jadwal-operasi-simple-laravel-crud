@@ -72,6 +72,10 @@
             </div>
             <div class="col-8" id="data">
                 <!-- start slide data -->
+
+                {{-- <br>timezone : {{$zone}} --}}
+                <br>now : {{$now}}
+
                 <div id="slide-data" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner shadow">
                         @for ($i = 0; $i < count($list); $i++)
