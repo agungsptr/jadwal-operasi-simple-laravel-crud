@@ -12,7 +12,7 @@ class DisplayController extends Controller
     {
         $jp = JadwalOperasi::whereDate('jam_masuk', Carbon::today())
             ->orderBy('jam_masuk', 'ASC')
-            ->paginate(10);
+            ->get();
 
         $list = [];
         $ten = [];
