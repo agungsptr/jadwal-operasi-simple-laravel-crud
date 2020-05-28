@@ -11,7 +11,7 @@ class DisplayController extends Controller
 {
     public function index()
     {
-        $jp = JadwalOperasi::whereDate('jam_masuk', Carbon::today())
+        $jp = JadwalOperasi::whereDate('jam_masuk', date("Y-m-d 00:00:00"))
             ->orderBy('jam_masuk', 'ASC')
             ->get();
 
@@ -32,7 +32,7 @@ class DisplayController extends Controller
             }
         }
 
-        $now = Carbon::now();
+        $now = Carbon::today();
         // $timezone = Carbon::timezone();
         return view('jadwal_operasi.index', [
             'list' => $list,
