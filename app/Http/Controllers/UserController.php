@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware(function ($request, $next) {
+            if (Gate::allows('admin')) return $next($request);
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        });
     }
 
     /**
@@ -46,6 +51,7 @@ class UserController extends Controller
                 'username' => "required|unique:users|max:191",
                 'password' => "required|min:6|max:190",
                 'password_confirmation' => "required|same:password",
+                'role' => "required",
             ],
             [
                 'username.required' => 'Username harus diisi',
@@ -56,12 +62,14 @@ class UserController extends Controller
                 'password.min' => 'Password minimal 6 karakter',
                 'password_confirmation.required' => 'Konfirmasi password harus diisi',
                 'password_confirmation.same' => 'Password dan Konfirmasi Password harus sama',
+                'role.required' => 'Role harus diisi', 'role' => "required",
             ]
         );
 
         $user = new User;
         $user->username = $request->get('username');
         $user->password = \Hash::make($request->get('password'));
+        $user->role = $request->get('role');
         $user->save();
 
         return redirect()->route('user.index')->with('status', "Berhasil menambahkan user $user->username");
@@ -104,6 +112,7 @@ class UserController extends Controller
                 'username' => "required|max:191",
                 'password' => "required|min:6|max:190",
                 'password_confirmation' => "required|same:password",
+                'role' => "required",
             ],
             [
                 'username.required' => 'Username harus diisi',
@@ -113,6 +122,7 @@ class UserController extends Controller
                 'password.min' => 'Password minimal 6 karakter',
                 'password_confirmation.required' => 'Konfirmasi password harus diisi',
                 'password_confirmation.same' => 'Password dan Konfirmasi Password harus sama',
+                'role.required' => 'Role harus diisi', 'role' => "required",
             ]
         );
 
@@ -132,6 +142,7 @@ class UserController extends Controller
         $user->username = $request->get('username');
 
         $user->password = \Hash::make($request->get('password'));
+        $user->role = $request->get('role');
         $user->save();
 
         return redirect()->route('user.index')->with('status', "Berhasil mengedit user $user->username");
@@ -147,7 +158,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $username = $user->username;
-        
+
         if ($username != "root") {
             $user->delete();
         } else {

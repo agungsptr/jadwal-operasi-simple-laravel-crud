@@ -10,28 +10,38 @@
                     @csrf
                     @method('PUT')
 
-                    <label for="">Username</label>
-                    <input type="text" name="username" value="{{$user->username}}" required>
+                    <div class="mb-2">
+                        <label for="">Username</label>
+                        <input type="text" name="username" value="{{$user->username}}"
+                            class="form-control @error('username') is-invalid @enderror" required>
+                        @error('username')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
 
-                    @error('username')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                    <br>
+                    <div class="mb-2">
+                        <label for="">Password</label>
+                        <input id="password" type="password" name="password"
+                            class="form-control" minlength="6" required>
+                    </div>
 
-                    <label for="">Password</label>
-                    <input type="password" name="password" class="form-control" required>
+                    <div class="mb-2">
+                        <label for="">Password Confirmation</label>
+                        <input id="password_confirmation" type="password"
+                            class="form-control"
+                            name="password_confirmation">
+                    </div>
 
-                    @error('password')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                    <br>
-
-                    <label for="">Password Confirmation</label>
-                    <input type="password" class="form-control" name="password_confirmation">
+                    <div class="mb-2">
+                        <label for="">Role</label>
+                        <select name="role" id="" class="form-control" required>
+                            <option value="">Pilih</option>
+                            <option {{$user->role == "user" ? 'SELECTED' : ''}} value="user">User</option>
+                            <option {{$user->role == "admin" ? 'SELECTED' : ''}} value="admin">Admin</option>
+                        </select>
+                    </div>
 
                     <hr>
                     <button class="btn btn-primary float-right" type="submit">Simpan</button>

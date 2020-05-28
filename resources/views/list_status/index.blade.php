@@ -11,6 +11,12 @@
     </div>
     @endif
 
+    @error('status')
+    <div class="alert alert-danger" role="alert">
+        {{$message}}
+    </div>
+    @enderror
+
     <h1 class="display-4">Manage Status</h1>
 
     <!-- Button trigger modal -->
@@ -20,14 +26,15 @@
 
     <table class="table table-striped table-bordered">
         <thead>
-            <th>No</th>
+            <th>#</th>
             <th>Status</th>
             <th>Action</th>
         </thead>
         <tbody>
+            <span hidden>{{$start = ($datas->currentpage()-1)*$datas->perpage()}}</span>
             @foreach ($datas as $data)
             <tr>
-                <td>{{$loop->iteration}}</td>
+                <td>{{$start + $loop->iteration}}</td>
                 <td>{{$data->status}}</td>
                 <td>
                     <a href="{{ route('status.edit', ['status'=>$data->id]) }}" class="btn btn-warning btn-sm float-left">Edit</a>
@@ -59,12 +66,6 @@
                         <div>
                             <label for="">Nama Status</label>
                             <input name="status" type="text" class="form-control" required>
-
-                            @error('status')
-                            <div class="invalid-feedback">
-                                {{$message}}
-                            </div>
-                            @enderror
                         </div>
                         <hr>
                         <button type="submit" class="btn btn-primary float-right">Simpan</button>

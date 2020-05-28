@@ -19,7 +19,7 @@ Route::match(["GET", "POST"], "/register", function(){
     return abort(404);
 });
 
-Route::get('/', 'JadwalOperasiController@index')->name('op.index');
+Route::get('/', 'DisplayController@index')->name('op.index');
 
 Route::group(['prefix' => 'manage'], function () {
     Route::get('/', 'JadwalOperasiController@create')->name('op.manage');

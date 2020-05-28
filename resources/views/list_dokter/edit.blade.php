@@ -11,8 +11,7 @@
                     @method('PUT')
 
                     <label for="">Nama Dokter</label>
-                    <input name="nama" type="text" class="form-control" value="{{$dokter->nama}}" required>
-
+                    <input name="nama" type="text" class="form-control @error('nama') is-invalid @enderror" value="{{$dokter->nama}}" required>
                     @error('nama')
                     <div class="invalid-feedback">
                         {{$message}}

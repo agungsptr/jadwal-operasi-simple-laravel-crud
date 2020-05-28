@@ -15,6 +15,7 @@ class RootSeeder extends Seeder
         $usr = new User;
         $usr->username = "root";
         $usr->password = \Hash::make("1sampai8");
+        $usr->role = "admin";
         $usr->save();
     }
 }

@@ -21,6 +21,7 @@
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
+                <th class="align-middle">#</th>
                 <th class="align-middle">Nama Pasien</th>
                 <th class="align-middle">Nama Dokter</th>
                 <th class="align-middle">Tindakan</th>
@@ -31,8 +32,10 @@
             </tr>
         </thead>
         <tbody>
+            <span hidden>{{$start = ($data->currentpage()-1)*$data->perpage()}}</span>
             @foreach ($data as $op)
             <tr>
+                <td>{{$start + $loop->iteration}}</td>
                 <td>{{$op->pasien}}</td>
                 <td>{{$op->dokter}}</td>
                 <td>{{$op->tindakan}}</td>
@@ -82,12 +85,6 @@
                                 <option value="{{$ld->nama}}">{{$ld->nama}}</option>
                                 @endforeach
                             </select>
-
-                            @error('dokter')
-                            <div class="invalid-feedback">
-                                {{$message}}
-                            </div>
-                            @enderror
                         </div>
                         <div class="mb-2">
                             <label for="">Tindakan</label>
@@ -97,12 +94,6 @@
                                 <option value="{{$lt->tindakan}}">{{$lt->tindakan}}</option>
                                 @endforeach
                             </select>
-
-                            @error('tindakan')
-                            <div class="invalid-feedback">
-                                {{$message}}
-                            </div>
-                            @enderror
                         </div>
                         <div class="mb-2">
                             <label for="">Status</label>
@@ -112,22 +103,10 @@
                                 <option value="{{$ls->status}}">{{$ls->status}}</option>
                                 @endforeach
                             </select>
-
-                            @error('status')
-                            <div class="invalid-feedback">
-                                {{$message}}
-                            </div>
-                            @enderror
                         </div>
                         <div class="mb-2">
                             <label for="">Jam Masuk</label>
-                            <input class="form-control" name="jam_masuk" type="datetime-local" required>
-
-                            @error('jam_masuk')
-                            <div class="invalid-feedback">
-                                {{$message}}
-                            </div>
-                            @enderror
+                            <input class="form-control" name="jam_masuk" type="datetime-local">
                         </div>
                         <hr>
                         <button type="submit" class="btn btn-primary float-right">Simpan</button>

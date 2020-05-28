@@ -11,7 +11,8 @@
                     @method('PUT')
 
                     <label for="">Status </label>
-                    <input name="status" type="text" class="form-control" value="{{$status->status}}" required>
+                    <input name="status" type="text" class="form-control @error('status') is-invalid @enderror"
+                        value="{{$status->status}}" required>
 
                     @error('status')
                     <div class="invalid-feedback">

@@ -11,13 +11,14 @@
                     @method('PUT')
 
                     <label for="">Tindakan :</label>
-                    <input name="tindakan" class="form-control" type="text" value="{{$tindakan->tindakan}}" required>
-
+                    <input name="tindakan" class="form-control @error('tindakan') is-invalid @enderror" type="text"
+                        value="{{$tindakan->tindakan}}" required>
                     @error('tindakan')
                     <div class="invalid-feedback">
                         {{$message}}
                     </div>
                     @enderror
+                    
                     <hr>
                     <button class="btn btn-primary float-right" type="submit">Simpan</button>
                 </form>

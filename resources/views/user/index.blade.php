@@ -8,6 +8,13 @@
         {{session('status')}}
     </div>
     @endif
+
+    @error('username')
+    <div class="alert alert-danger" role="alert">
+        {{ $message }}
+    </div>
+    @enderror
+
     <h1 class="display-4">Manage User</h1>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-success float-right mb-3" data-toggle="modal" data-target="#staticBackdrop">
@@ -15,20 +22,25 @@
     </button>
     <table class="table table-striped table-bordered">
         <thead>
-            <th>No</th>
+            <th>#</th>
             <th>Username</th>
-            <th>Created at</th>
+            <th>Created</th>
+            <th>Role</th>
             <th>Action</th>
         </thead>
         <tbody>
+            <span hidden>{{$start = ($users->currentpage()-1)*$users->perpage()}}</span>
             @foreach ($users as $user)
             <tr>
-                <td>{{$loop->iteration}}</td>
+                <td>{{$start + $loop->iteration}}</td>
                 <td>{{$user->username}}</td>
                 <td>{{$user->created_at}}</td>
+                <td>{{$user->role}}</td>
                 <td>
-                    <a href="{{ route('user.edit', ['user'=>$user->id]) }}" class="btn btn-warning btn-sm float-left">Edit</a>
-                    <form onsubmit="return confirm('Delete {{$user->username}} ?')" class=" float-left ml-1" action="{{ route('user.destroy', ['user'=>$user->id]) }}" method="POST">
+                    <a href="{{ route('user.edit', ['user'=>$user->id]) }}"
+                        class="btn btn-warning btn-sm float-left">Edit</a>
+                    <form onsubmit="return confirm('Delete {{$user->username}} ?')" class=" float-left ml-1"
+                        action="{{ route('user.destroy', ['user'=>$user->id]) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
@@ -41,7 +53,8 @@
 
     {{$users->links()}}
     <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -53,25 +66,32 @@
                 <div class="modal-body">
                     <form action="{{ route('user.store') }}" method="POST">
                         @csrf
-                        <label for="">Username</label>
-                        <input type="text" name="username" class="form-control" required>
-<br>
-                        @error('username')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                        <label for="">Password</label>
-                        <input type="password" name="password" class="form-control" required>
-<br>
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                        <label for="">Password Confirmation</label>
-                        <input type="password" class="form-control" name="password_confirmation">
-                        <br>
+                        <div class="mb-2">
+                            <label for="">Username</label>
+                            <input type="text" name="username" class="form-control" required>
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="">Password</label>
+                            <input id="password" type="password" name="password" class="form-control" minlength="6"
+                                required>
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="">Password Confirmation</label>
+                            <input id="password_confirmation" type="password" class="form-control"
+                                name="password_confirmation">
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="">Role</label>
+                            <select name="role" id="" required class="form-control">
+                                <option value="">Pilih</option>
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+
                         <hr>
                         <button type="submit" class="btn btn-primary float-right">Simpan</button>
                     </form>

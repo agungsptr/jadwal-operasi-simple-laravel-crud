@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -25,6 +26,7 @@
         }
     </style>
 </head>
+
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -32,49 +34,57 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     Jadwal Operasi
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <div class="navbar-nav mr-auto">
-                        @guest
-
-                        @else
-                            <a class="nav-item nav-link {{ (request()->segment(1) == 'manage' ? 'active' : '')}}" href="{{route('op.manage')}}">Home</a>
-                            <a class="nav-item nav-link {{ (request()->segment(2) == 'dokter' ? 'active' : '')}}" href="{{route('dokter.index')}}">List Dokter</a>
-                            <a class="nav-item nav-link {{ (request()->segment(2) == 'tindakan' ? 'active' : '')}}" href="{{route('tindakan.index')}}">List Tindakan</a>
-                            <a class="nav-item nav-link {{ (request()->segment(2) == 'status' ? 'active' : '')}}" href="{{route('status.index')}}">List Status</a>
-                            <a class="nav-item nav-link {{ (request()->segment(1) == 'user' ? 'active' : '')}}" href="{{route('user.index')}}">User</a>                            
-                        @endguest
+                        @auth
+                        @if (Auth::user()->role == "admin")
+                        <a class="nav-item nav-link {{ (request()->segment(1) == 'manage' ? 'active' : '')}}"
+                            href="{{route('op.manage')}}">Home</a>
+                        <a class="nav-item nav-link {{ (request()->segment(2) == 'dokter' ? 'active' : '')}}"
+                            href="{{route('dokter.index')}}">List Dokter</a>
+                        <a class="nav-item nav-link {{ (request()->segment(2) == 'tindakan' ? 'active' : '')}}"
+                            href="{{route('tindakan.index')}}">List Tindakan</a>
+                        <a class="nav-item nav-link {{ (request()->segment(2) == 'status' ? 'active' : '')}}"
+                            href="{{route('status.index')}}">List Status</a>
+                        <a class="nav-item nav-link {{ (request()->segment(1) == 'user' ? 'active' : '')}}"
+                            href="{{route('user.index')}}">User</a>
+                        @endif
+                        @endauth
                     </div>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ Auth::user()->username }} <span class="caret"></span>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ Auth::user()->username }} <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
                         @endguest
                     </ul>
                 </div>
@@ -85,6 +95,25 @@
             @yield('content')
         </main>
     </div>
-    
+
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            var password = document.getElementById("password");
+            var confirm_password = document.getElementById("password_confirmation");
+
+            function validatePassword(){
+                if(password.value != confirm_password.value) {
+                    confirm_password.setCustomValidity("Password tidak sama");
+                } else {
+                    confirm_password.setCustomValidity('');
+                }
+            }
+
+            password.onchange = validatePassword;
+            confirm_password.onkeyup = validatePassword;
+        });
+    </script>
 </body>
+
 </html>
