@@ -33,11 +33,12 @@ class DisplayController extends Controller
         }
 
         $now = Carbon::today();
-        // $timezone = Carbon::timezone();
+        $date = date("Y-m-d 00:00:00");
+        
         return view('jadwal_operasi.index', [
             'list' => $list,
             'now' => $now,
-            // 'zone' => $timezone,
+            'date' => $date,
         ]);
     }
 }

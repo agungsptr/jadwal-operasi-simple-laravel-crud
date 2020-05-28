@@ -73,7 +73,7 @@
             <div class="col-8" id="data">
                 <!-- start slide data -->
 
-                {{-- <br>timezone : {{$zone}} --}}
+                <br>date : {{$date}}
                 <br>now : {{$now}}
 
                 <div id="slide-data" class="carousel slide" data-ride="carousel">
